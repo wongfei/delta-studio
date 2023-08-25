@@ -21,6 +21,8 @@ public:
 
     virtual void UpdateAudioSources();
 
+    IDirectSound8 *GetDevice() { return m_device; }
+
 private:
     GUID m_guid;
     IDirectSound8 *m_device;

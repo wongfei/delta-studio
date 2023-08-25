@@ -3,6 +3,9 @@
 #include "../include/yds_ds8_device.h"
 #include "../include/yds_windows_window.h"
 
+static HWND DS8WindowOverride = nullptr;
+void SetDS8WindowOverride(HWND Window) { DS8WindowOverride = Window; }
+
 ysDS8System::ysDS8System() : ysAudioSystem(API::DirectSound8) {
     /* void */
 }
@@ -36,7 +39,7 @@ void ysDS8System::ConnectDevice(ysAudioDevice *device, ysWindow *windowAssociati
     //RaiseError(windowAssociation->GetPlatform() == ysWindow::Platform::Windows, "Incompatible platform for audio device window association.");
     ysWindowsWindow *windowsWindow = static_cast<ysWindowsWindow *>(windowAssociation);
 
-    result = ds8Device->m_device->SetCooperativeLevel(windowsWindow->GetWindowHandle(), DSSCL_PRIORITY);
+    result = ds8Device->m_device->SetCooperativeLevel(DS8WindowOverride ? DS8WindowOverride : windowsWindow->GetWindowHandle(), DSSCL_PRIORITY);
 
     if (FAILED(result)) {
         // Error message
@@ -57,7 +60,7 @@ void ysDS8System::ConnectDeviceConsole(ysAudioDevice *device) {
         int a = 0;
     }
 
-    result = ds8Device->m_device->SetCooperativeLevel(GetConsoleWindow(), DSSCL_PRIORITY);
+    result = ds8Device->m_device->SetCooperativeLevel(DS8WindowOverride ? DS8WindowOverride : GetConsoleWindow(), DSSCL_PRIORITY);
 
     if (FAILED(result)) {
         // Error message
