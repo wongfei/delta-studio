@@ -670,7 +670,8 @@ ysError ysD3D11Device::Present() {
     ysD3D11Context *context = static_cast<ysD3D11Context *>(m_activeContext);
     if (context->m_swapChain == nullptr) return YDS_ERROR_RETURN(ysError::NoContext);
 
-    context->m_swapChain->Present(1, 0);
+    //context->m_swapChain->Present(1, 0);
+    context->m_swapChain->Present(0, 0);
 
     return YDS_ERROR_RETURN(ysError::None);
 }
@@ -994,7 +995,8 @@ ysError ysD3D11Device::CreateVertexShader(ysShader **newShader, const char *shad
     result = D3DX11CompileFromFile(shaderFilename, nullptr, nullptr, shaderName, "vs_4_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, nullptr, &shaderBlob, &error, nullptr);
 
     if (FAILED(result)) {
-        return YDS_ERROR_RETURN_MSG(ysError::VertexShaderCompilationError, (char *)error->GetBufferPointer());
+        printf("D3DX11CompileFromFile failed: HR=0x%X\n", result);
+        return YDS_ERROR_RETURN_MSG(ysError::VertexShaderCompilationError, (error ? (char *)error->GetBufferPointer() : "unknown error"));
     }
 
     result = m_device->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, &vertexShader);

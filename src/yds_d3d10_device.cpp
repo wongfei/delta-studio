@@ -467,7 +467,8 @@ ysError ysD3D10Device::Present() {
     ysD3D10Context *context = static_cast<ysD3D10Context *>(m_activeContext);
     if (context->m_swapChain == nullptr) return YDS_ERROR_RETURN(ysError::NoContext);
 
-    context->m_swapChain->Present(1, 0);
+    //context->m_swapChain->Present(1, 0);
+    context->m_swapChain->Present(0, 0);
 
     return YDS_ERROR_RETURN(ysError::None);
 }
