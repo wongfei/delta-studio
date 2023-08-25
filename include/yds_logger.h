@@ -56,9 +56,9 @@ protected:
 
 };
 
-#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-
 #ifdef YS_ENABLE_LOGGING
+
+#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 #define ysLogMessage(message, level, ...) \
     ysLogger::Logger()->LogMessage(message, __FILENAME__, __LINE__, level, __VA_ARGS__);

@@ -22,6 +22,6 @@ protected:
 };
 
 // TEMP
-#include "yds_error_system.h"
+#include "yds_error_system.h" // nice recursive inclusion
 
 #endif /* YDS_BASE_H */

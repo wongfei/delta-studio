@@ -45,19 +45,22 @@ protected:
     const char *m_callStack[MAX_STACK_LEVEL];
 };
 
+//#define YDS_FILENAME __FILE__
+#define YDS_FILENAME "" // IM PARANOID :D
+
 #define _YDS_WIDE(_String) L ## _String
 #define YDS_WIDE(_String) _YDS_WIDE(_String)
 
-#define YDS_ERROR_RETURN(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, __FILE__, "")
+#define YDS_ERROR_RETURN(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, YDS_FILENAME, "")
 
 #define YDS_ERROR_RETURN_MANUAL()                \
     ysErrorSystem::GetInstance()->StackDescend()
 
-#define YDS_ERROR_RETURN_STATIC(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, NULL, __FILE__, "")
+#define YDS_ERROR_RETURN_STATIC(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, NULL, YDS_FILENAME, "")
 
-#define YDS_ERROR_RAISE(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, __FILE__, "", false)
+#define YDS_ERROR_RAISE(error) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, YDS_FILENAME, "", false)
 
-#define YDS_ERROR_RETURN_MSG(error, msg) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, __FILE__, msg)
+#define YDS_ERROR_RETURN_MSG(error, msg) ysErrorSystem::GetInstance()->RaiseError(error, __LINE__, this, YDS_FILENAME, msg)
 
 #define YDS_NESTED_ERROR_CALL(call)                     \
 {                                                       \
